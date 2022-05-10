@@ -38,8 +38,12 @@
     border-right: none;
 }
 
+::ng-deep .dx-treeview-item.dx-state-hover {
+    color: #fff !important;
+}
+
 .menu {
-    background-color: #347cff;
+    background: linear-gradient(to bottom, #6441a5, #2a0845);
     color: #fff;
     height: 100vh;
     position: fixed;
@@ -52,8 +56,14 @@
 header {
     width: 85%;
     margin-left: auto;
-    background: #c5c5c573;
+    background: linear-gradient(to right, #6441a5, #2a0845);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     padding: 5px;
+}
+
+header a {
+    color: rgb(226, 226, 226) !important;
 }
 
 ::ng-deep #treeviewDriveC {
