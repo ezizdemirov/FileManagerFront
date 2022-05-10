@@ -1,6 +1,31 @@
-<br>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav" mdbCollapse>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
 
-<div class="form">
+<nav class="menu">
   <div class="drive-panel">
     <div class="drive-header dx-treeview-item">
       <div class="dx-treeview-item-content"><i class="dx-icon dx-icon-activefolder"></i><span>Drive C:</span></div>
@@ -12,33 +37,39 @@
       </dx-tree-view>
     </dx-sortable>
   </div>
-  <div class="drive-panel">
+</nav>
+
+<div class="main">
+  <div class="form">
+    <div class="drive-panel">
 
 
 
-    <div class="drive-header dx-treeview-item">
-      <!-- <div class="dx-treeview-item-content"><i class="dx-icon dx-icon-activefolder"></i><span>Drive D:</span></div> -->
-      <dx-button stylingMode="contained" text="Yeni" [icon]="'plus'" (onClick)="addFile()" type="success" [width]="120">
-      </dx-button>
+      <div class="drive-header dx-treeview-item">
+        <!-- <div class="dx-treeview-item-content"><i class="dx-icon dx-icon-activefolder"></i><span>Drive D:</span></div> -->
+        <dx-button stylingMode="contained" text="Yeni" [icon]="'plus'" (onClick)="addFile()" type="success"
+          [width]="120">
+        </dx-button>
+      </div>
+
+
+
+      <dx-data-grid [showColumnLines]="true" [dataSource]="null" [showBorders]="true" [selection]="true"
+        [allowColumnReordering]="true" [allowColumnResizing]="true" [showRowLines]="true" [allowColumnResizing]="true"
+        [showBorders]="true" [columnMinWidth]="50" [allowColumnReordering]="true" [allowColumnResizing]="true">
+
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-search-panel [visible]="true" [width]="240" placeholder="Axtarış..."></dxo-search-panel>
+        <dxi-column alignment="center" dataField="fileName" caption="Fayl adı"></dxi-column>
+        <dxi-column alignment="center" dataField="fileSize" caption="Fayl ölçüsü"></dxi-column>
+        <dxi-column alignment="center" dataField="fileType" caption="Fayl tipi" dataType="date"></dxi-column>
+        <dxi-column alignment="center" dataField="note" caption="Dəyişdirilmə tarixi" dataType="date"> </dxi-column>
+        <dxo-paging [pageSize]="15"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 15, 20]" [showInfo]="true"></dxo-pager>
+      </dx-data-grid>
+
     </div>
-
-
-
-    <dx-data-grid [showColumnLines]="true" [dataSource]="null" [showBorders]="true" [selection]="true"
-      [allowColumnReordering]="true" [allowColumnResizing]="true" [showRowLines]="true" [allowColumnResizing]="true"
-      [showBorders]="true" [columnMinWidth]="50" [allowColumnReordering]="true" [allowColumnResizing]="true">
-
-      <dxo-filter-row [visible]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
-      <dxo-search-panel [visible]="true" [width]="240" placeholder="Axtarış..."></dxo-search-panel>
-      <dxi-column alignment="center" dataField="fileName" caption="Fayl adı"></dxi-column>
-      <dxi-column alignment="center" dataField="fileSize" caption="Fayl ölçüsü"></dxi-column>
-      <dxi-column alignment="center" dataField="fileType" caption="Fayl tipi" dataType="date"></dxi-column>
-      <dxi-column alignment="center" dataField="note" caption="Dəyişdirilmə tarixi" dataType="date"> </dxi-column>
-      <dxo-paging [pageSize]="15"></dxo-paging>
-      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 15, 20]" [showInfo]="true"></dxo-pager>
-    </dx-data-grid>
-
   </div>
 </div>
 
@@ -47,29 +78,30 @@
   title="Fayl və ya qovlu yarat">
   <dx-validation-group #validator>
 
-    <div class="dx-fieldset">
-      <div class="dx-field">
-        <div class="dx-field-label">Folder Name</div>
-        <div class="dx-field-value">
-          <dx-text-box value="Smith" [showClearButton]="true" placeholder="Folder name" valueChangeEvent="keyup">
-          </dx-text-box>
-        </div>
+    <div class="row">
+      <div class="mb-3">
+        <label>Folder name</label>
       </div>
-      <div id="fileuploader-container">
-        <dx-file-uploader selectButtonText="Select File" labelText="" accept="image/*" uploadMode="useForm">
-        </dx-file-uploader>
+      <div>
+        <dx-text-box value="Smith" [showClearButton]="true" placeholder="Folder name" valueChangeEvent="keyup">
+        </dx-text-box>
       </div>
-
+    </div>
+    <div class="row">
+      <dx-file-uploader class="p-0" selectButtonText="Select File" labelText="" accept="image/*" uploadMode="useForm">
+      </dx-file-uploader>
     </div>
 
+    <div class="d-flex justify-content-end">
+      <dx-button text="Yeni" [icon]="'plus'" type="success" [width]="120">
+      </dx-button>
+    </div>
 
   </dx-validation-group>
 
-  <div style="margin-left: 268px" class="form-row">
 
-    <dx-button text="Yeni" [icon]="'plus'" type="success" [width]="120">
-    </dx-button>
-  </div>
+
+
 
 
 </dx-popup>

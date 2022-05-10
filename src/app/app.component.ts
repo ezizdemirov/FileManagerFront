@@ -178,12 +178,12 @@ export class AppComponent {
   }
   itemClick(e) {
     if (!e.itemData.items) {
-      alert(1);
+      // alert(1);
       console.log(e);
       // notify(`The "${e.itemData.text}" item was clicked`, 'success', 1500);
     }
   }
   addFile() {
-    alert(0);
+    // alert(0);
   }
 }

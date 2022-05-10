@@ -135,7 +135,7 @@ const itemsDriveC: FileSystemItem[] = [
 @Injectable()
 export class Service {
   getItemsDriveC(): FileSystemItem[] {
-    alert(0);
+    // alert(0);
     return itemsDriveC;
   }
 
