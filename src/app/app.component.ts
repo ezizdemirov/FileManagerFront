@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   DxTreeViewModule,
   DxTreeViewComponent,
@@ -11,12 +11,16 @@ import { Service, FileSystemItem } from './app.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  selectedData: any;
+
   title = 'FileManagerFront';
   actionTarget: any;
-  itemsDriveC: FileSystemItem[];
+  itemsDriveC: FileSystemItem[] = [];
   items: any;
+  model: FileSystemItem;
   itemsDriveD: FileSystemItem[];
+  popup: boolean;
   @ViewChild('treeviewDriveC') treeviewDriveC: DxTreeViewComponent;
 
   @ViewChild('treeviewDriveD') treeviewDriveD: DxTreeViewComponent;
@@ -26,13 +30,36 @@ export class AppComponent {
       //   text: 'Share',
       //   items: [{ text: 'Facebook' }, { text: 'Twitter' }],
       // },
-      { text: 'Download' },
-      { text: 'Comment' },
-      { text: 'Favorite' },
+      { text: 'Create', id: 1 },
+      { text: 'Edit', id: 2 },
+      { text: 'Delete', id: 3 },
     ];
 
-    this.itemsDriveC = this.service.getItemsDriveC();
+    // let x = this.service.getFileManager();
     // this.itemsDriveD = this.service.getItemsDriveD();
+  }
+
+  async ngOnInit() {
+    this.itemsDriveC = await this.service.getFileManager().toPromise();
+  }
+
+  async add() {
+    this.model.expanded = true;
+    this.model.icon = 'folder';
+    this.model.isDirectory = true;
+    this.model.parentId = this.selectedData.parentId;
+    this.model.createdDate = new Date();
+    console.log(this.model, 'model', this.selectedData);
+
+    await this.service.createFolder(this.model).toPromise();
+    this.popup = false;
+    this.model = null;
+    this.ngOnInit();
+  }
+
+  async delete(id: number) {
+    await this.service.deleteFolder(id).toPromise();
+    this.ngOnInit();
   }
 
   onDragChange(e: any) {
@@ -176,12 +203,29 @@ export class AppComponent {
 
     return null;
   }
-  itemClick(e) {
-    if (!e.itemData.items) {
-      // alert(1);
-      console.log(e);
-      // notify(`The "${e.itemData.text}" item was clicked`, 'success', 1500);
+  itemClickk(e) {
+    this.selectedData = e.itemData;
+  }
+
+  itemClick(e: any) {
+    if (e.itemData.id == 1) {
+      console.log(this.selectedData, 'Yeni');
+      this.popup = true;
+      this.model = new FileSystemItem();
     }
+    if (e.itemData.id == 2) {
+      console.log(this.selectedData, 'Edit');
+      this.model = this.selectedData;
+    }
+    if (e.itemData.id == 3) {
+      console.log(this.selectedData, 'Del');
+      this.delete(this.selectedData.id);
+    }
+  }
+
+  selectItem(e: any) {
+    console.log(e.itemData, 'ee');
+    this.selectedData = e.itemData;
   }
   addFile() {
     // alert(0);

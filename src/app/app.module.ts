@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Service, FileSystemItem } from './app.service';
+
 import {
   DxTreeViewModule,
   DxTreeViewComponent,
@@ -17,6 +18,7 @@ import {
   DxActionSheetModule,
   DxContextMenuModule,
 } from 'devextreme-angular';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -31,7 +33,7 @@ import {
     DxFileUploaderModule,
     DxActionSheetModule,
     DxContextMenuModule,
-
+    HttpClientModule,
     DxSortableModule,
   ],
 

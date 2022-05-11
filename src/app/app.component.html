@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light bg-transparent">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
       <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,8 +38,9 @@
     </div>
     <dx-sortable filter=".dx-treeview-item" group="shared" data="driveC" [allowDropInsideItem]="true"
       [allowReordering]="true" (onDragChange)="onDragChange($event)" (onDragEnd)="onDragEnd($event)">
-      <dx-tree-view #treeviewDriveC id="treeviewDriveC" dataStructure="plain" displayExpr="name"
-        [expandNodesRecursive]="false" [items]="itemsDriveC" [width]="250" [height]="380">
+      <dx-tree-view #treeviewDriveC (onItemClick)="selectItem($event)" (onItemContextMenu)="itemClickk($event)"
+        id="treeviewDriveC" dataStructure="plain" displayExpr="name" [expandNodesRecursive]="false"
+        [items]="itemsDriveC" [width]="250" [height]="380">
       </dx-tree-view>
     </dx-sortable>
   </div>
@@ -80,36 +81,25 @@
 </div>
 
 
-<dx-popup [visible]="true" [dragEnabled]="true" [resizeEnabled]="true" class="popup" width="450" height="auto"
-  title="Fayl və ya qovlu yarat">
+<dx-popup [visible]="model" *ngIf="model" [dragEnabled]="true" [resizeEnabled]="true" class="popup" width="450"
+  height="auto" title="Qovluq yarat">
   <dx-validation-group #validator>
-
     <div class="row">
       <div class="mb-3">
         <label>Folder name</label>
       </div>
+
       <div>
-        <dx-text-box value="Smith" [showClearButton]="true" placeholder="Folder name" valueChangeEvent="keyup">
+        <dx-text-box [(value)]="model.name" [showClearButton]="true" placeholder="Folder name" valueChangeEvent="keyup">
         </dx-text-box>
       </div>
     </div>
-    <div class="row">
-      <dx-file-uploader class="p-0" selectButtonText="Select File" labelText="" accept="image/*" uploadMode="useForm">
-      </dx-file-uploader>
-    </div>
-
+    <br>
     <div class="d-flex justify-content-end">
-      <dx-button text="Yeni" [icon]="'plus'" type="success" [width]="120">
+      <dx-button text="Yeni" [icon]="'plus'" type="success" [width]="120" (onClick)="add()">
       </dx-button>
     </div>
-
   </dx-validation-group>
-
-
-
-
-
-
 </dx-popup>
 
 <dx-context-menu [dataSource]="items" [width]="200" target="#treeviewDriveC" (onItemClick)="itemClick($event)">
