@@ -4,7 +4,7 @@ import {
   DxTreeViewComponent,
   DxSortableModule,
 } from 'devextreme-angular';
-import { Service, FileSystemItem } from './app.service';
+import { Service, FileSystemItem, UploadViewModel } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +19,11 @@ export class AppComponent implements OnInit {
   itemsDriveC: FileSystemItem[] = [];
   items: any;
   model: FileSystemItem;
+  uploadModel: UploadViewModel = new UploadViewModel();
+  form = new FormData();
   itemsDriveD: FileSystemItem[];
   popup: boolean;
+  showUploadPopup: boolean = false;
   @ViewChild('treeviewDriveC') treeviewDriveC: DxTreeViewComponent;
 
   @ViewChild('treeviewDriveD') treeviewDriveD: DxTreeViewComponent;
@@ -234,5 +237,36 @@ export class AppComponent implements OnInit {
     console.log(e.itemData, 'ee');
     this.selectedData = e.itemData;
   }
-  addFile() {}
+  addFile() {
+    this.showUploadPopup = true;
+  }
+
+  async uploadFile() {
+    await this.populateForm(this.uploadModel, this.form);
+    this.uploadModel.id = await this.selectedData.id;
+    await this.service.uploadFile(this.form);
+    this.showUploadPopup = false;
+    this.selectedData = null;
+    this.ngOnInit();
+  }
+
+  async populateForm(model: any, form: FormData) {
+    for (let key in model) {
+      let val = model[key];
+      form.delete(key);
+
+      if (val instanceof Date) {
+        form.append(key, val.toISOString());
+      } else {
+        form.append(key, val);
+      }
+    }
+  }
+
+  onFileChange(event: any) {
+    let file = event.value[0];
+    this.form.delete('File');
+    this.form.append('File', file);
+    this.uploadModel.id = this.selectedData.id;
+  }
 }

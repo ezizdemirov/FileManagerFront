@@ -104,3 +104,31 @@
 
 <dx-context-menu [dataSource]="items" [width]="200" target="#treeviewDriveC" (onItemClick)="itemClick($event)">
 </dx-context-menu>
+
+<dx-popup [(visible)]="showUploadPopup" [dragEnabled]="true" [resizeEnabled]="true" class="popup" width="450"
+  height="auto" title="File upload">
+  <dx-validation-group #validator>
+    <div class="row">
+      <div class="mb-3">
+        <label>Folder name</label>
+      </div>
+
+      <div>
+        <dx-file-uploader #restrictedFiles labelText="" accept='*' (valueChange)="onFileChange(restrictedFiles)"
+          uploadMode="useForm">
+
+
+        </dx-file-uploader>
+
+
+
+
+      </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-end">
+      <dx-button text="Save" [icon]="'save'" type="success" [width]="120" (onClick)="uploadFile()">
+      </dx-button>
+    </div>
+  </dx-validation-group>
+</dx-popup>
