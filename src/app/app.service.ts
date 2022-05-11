@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { BaseService } from './base.service';
 
 export class FileSystemItem {
-  id: string;
+  id: number;
   parentId?: string;
   name: string;
   icon: string;
@@ -12,19 +12,6 @@ export class FileSystemItem {
   expanded?: boolean;
   createdDate: Date;
 }
-
-/* @Injectable()
-export class Service {
-  getItemsDriveC(): FileSystemItem[] {
-    // alert(0);
-    return itemsDriveC;
-  }
-
-  getItemsDriveD(): FileSystemItem[] {
-    // return itemsDriveD;
-    return null;
-  }
-} */
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +37,11 @@ export class Service extends BaseService {
   deleteFolder(id: number) {
     return this.http.delete<any>(
       environment.rootUrl + `FileManager/DeleteFolder?id=${id}`
+    );
+  }
+  getById(id: number) {
+    return this.http.get<FileSystemItem>(
+      environment.rootUrl + `FileManager/getById?id=${id}`
     );
   }
 }

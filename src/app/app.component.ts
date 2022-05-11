@@ -47,11 +47,15 @@ export class AppComponent implements OnInit {
     this.model.expanded = true;
     this.model.icon = 'folder';
     this.model.isDirectory = true;
-    this.model.parentId = this.selectedData.parentId;
-    this.model.createdDate = new Date();
-    console.log(this.model, 'model', this.selectedData);
+    if (this.selectedData) {
+      this.model.parentId = await this.selectedData.id;
+    } else {
+      this.model.parentId = null;
+    }
 
+    this.model.createdDate = new Date();
     await this.service.createFolder(this.model).toPromise();
+    this.selectedData = null;
     this.popup = false;
     this.model = null;
     this.ngOnInit();
@@ -204,18 +208,21 @@ export class AppComponent implements OnInit {
     return null;
   }
   itemClickk(e) {
+    console.log(e);
     this.selectedData = e.itemData;
   }
 
   itemClick(e: any) {
     if (e.itemData.id == 1) {
       console.log(this.selectedData, 'Yeni');
-      this.popup = true;
+      //  this.model.parentId = this.popup = true;
+
       this.model = new FileSystemItem();
     }
     if (e.itemData.id == 2) {
       console.log(this.selectedData, 'Edit');
       this.model = this.selectedData;
+      //  this.service.getById();
     }
     if (e.itemData.id == 3) {
       console.log(this.selectedData, 'Del');
@@ -227,7 +234,5 @@ export class AppComponent implements OnInit {
     console.log(e.itemData, 'ee');
     this.selectedData = e.itemData;
   }
-  addFile() {
-    // alert(0);
-  }
+  addFile() {}
 }
