@@ -75,3 +75,7 @@ header a {
     margin-left: auto !important;
     margin: 20px;
 }
+
+::ng-deep #treeviewDriveC {
+    width: auto !important;
+}

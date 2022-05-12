@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import DataSource from 'devextreme/data/data_source';
+
 import { environment } from 'src/environments/environment';
 import { BaseService } from './base.service';
 
@@ -37,6 +39,12 @@ export class Service extends BaseService {
     return this.http.post<FileSystemItem>(
       environment.rootUrl + 'FileManager/CreateFolder',
       model
+    );
+  }
+
+  getFiles(id: number) {
+    return this.http.get<DataSource>(
+      environment.rootUrl + `FileManager/GetFiles?id=${id}`
     );
   }
 

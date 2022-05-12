@@ -61,17 +61,17 @@
 
 
 
-      <dx-data-grid [showColumnLines]="true" [dataSource]="null" [showBorders]="true" [selection]="true"
+      <dx-data-grid [showColumnLines]="true" [dataSource]="ds" [showBorders]="true" [selection]="true"
         [allowColumnReordering]="true" [allowColumnResizing]="true" [showRowLines]="true" [allowColumnResizing]="true"
         [showBorders]="true" [columnMinWidth]="50" [allowColumnReordering]="true" [allowColumnResizing]="true">
 
         <dxo-filter-row [visible]="true"></dxo-filter-row>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
         <dxo-search-panel [visible]="true" [width]="240" placeholder="Axtarış..."></dxo-search-panel>
-        <dxi-column alignment="center" dataField="fileName" caption="Fayl adı"></dxi-column>
-        <dxi-column alignment="center" dataField="fileSize" caption="Fayl ölçüsü"></dxi-column>
-        <dxi-column alignment="center" dataField="fileType" caption="Fayl tipi" dataType="date"></dxi-column>
-        <dxi-column alignment="center" dataField="note" caption="Dəyişdirilmə tarixi" dataType="date"> </dxi-column>
+        <dxi-column alignment="center" dataField="name" caption="Fayl adı"></dxi-column>
+
+        <dxi-column alignment="center" dataField="createdDate" [dataType]="'date'" caption="Yaradilma tarixi">
+        </dxi-column>
         <dxo-paging [pageSize]="15"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 15, 20]" [showInfo]="true"></dxo-pager>
       </dx-data-grid>

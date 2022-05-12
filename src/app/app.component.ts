@@ -4,6 +4,7 @@ import {
   DxTreeViewComponent,
   DxSortableModule,
 } from 'devextreme-angular';
+import DataSource from 'devextreme/data/data_source';
 import { Service, FileSystemItem, UploadViewModel } from './app.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
   uploadModel: UploadViewModel = new UploadViewModel();
   form = new FormData();
   itemsDriveD: FileSystemItem[];
+  ds: DataSource;
   popup: boolean;
   showUploadPopup: boolean = false;
   @ViewChild('treeviewDriveC') treeviewDriveC: DxTreeViewComponent;
@@ -210,9 +212,8 @@ export class AppComponent implements OnInit {
 
     return null;
   }
-  itemClickk(e) {
-    console.log(e);
-    this.selectedData = e.itemData;
+  async itemClickk(e) {
+    this.selectedData = await e.itemData;
   }
 
   itemClick(e: any) {
@@ -233,9 +234,10 @@ export class AppComponent implements OnInit {
     }
   }
 
-  selectItem(e: any) {
+  async selectItem(e: any) {
     console.log(e.itemData, 'ee');
-    this.selectedData = e.itemData;
+    this.selectedData = await e.itemData;
+    this.ds = await this.service.getFiles(e.itemData.id).toPromise();
   }
   addFile() {
     this.showUploadPopup = true;
