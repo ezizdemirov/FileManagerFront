@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //  rootUrl: 'https://localhost:44342/api/',
-  rootUrl: 'https://frabjous-eclair-ea6e38.netlify.app/',
+  rootUrl: 'https://localhost:44342/api/',
+  // rootUrl: 'https://frabjous-eclair-ea6e38.netlify.app/',
 };
 
 /*
