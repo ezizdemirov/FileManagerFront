@@ -31,7 +31,7 @@ export class Service extends BaseService {
 
   getFileManager() {
     return this.http.get<FileSystemItem[]>(
-      `https://localhost:44342/api/FileManager/GetFileManager`
+      environment.rootUrl + `FileManager/GetFileManager`
     );
   }
 
